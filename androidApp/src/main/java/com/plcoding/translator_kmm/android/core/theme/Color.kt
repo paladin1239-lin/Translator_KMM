@@ -2,13 +2,15 @@ package com.plcoding.translator_kmm.android.core.theme
 
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
+import com.plcoding.translator_kmm.core.presentation.Colors
 import androidx.compose.ui.graphics.Color
 
-val AccentViolet = Color.Red
-val LightBlue = Color.Red
-val LightBlueGrey = Color.Red
-val TextBlack = Color.Red
-val DarkGrey = Color.Red
+
+val AccentViolet = Color(Colors.AccentViolet)
+val LightBlue = Color(Colors.LightBlue)
+val LightBlueGrey = Color(Colors.LightBlueGrey)
+val TextBlack = Color(Colors.TextBlack)
+val DarkGrey = Color(Colors.DarkGrey)
 
 val lightColors = lightColors(
     primary = AccentViolet,
