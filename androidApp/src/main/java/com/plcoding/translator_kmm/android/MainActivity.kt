@@ -25,7 +25,9 @@ import com.plcoding.translator_kmm.android.translate.presentation.AndroidTransla
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.plcoding.translator_kmm.translate.presentation.TranslateEvent
 
 
 @Composable
@@ -127,8 +129,27 @@ fun TranslateRoot(){
             val state by viewModel.state.collectAsState()
             TranslateScreen(
                 state = state,
-                onEvent = viewModel::onEvent
+                onEvent = { event ->
+                    when(event){
+                        TranslateEvent.RecordAudio -> {
+                            navController.navigate(Routes.VOICE_TO_TEXT+"/${state.fromLanguage.language.langCode}")
+                        }
+                        else -> viewModel.onEvent(event)
+                    }
+                }
             )
+        }
+        composable(
+            route = Routes.VOICE_TO_TEXT + "/{languageCode}",
+            arguments = listOf(
+                navArgument("languageCode"){
+                    type = NavType.StringType
+                    defaultValue = "en"
+                }
+
+            )
+        ) {
+            Text("Voice-to-text")
         }
     }
 }
