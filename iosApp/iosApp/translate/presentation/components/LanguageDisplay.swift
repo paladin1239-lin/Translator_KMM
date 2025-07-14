@@ -2,8 +2,8 @@
 //  LanguageDisplay.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/11/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ struct LanguageDisplay: View {
     var language: UiLanguage
     
     var body: some View {
-        HStack {
+        HStack{
             SmallLanguageIcon(language: language)
                 .padding(.trailing, 5)
             Text(language.language.langName)
@@ -22,10 +22,8 @@ struct LanguageDisplay: View {
     }
 }
 
-struct LanguageDisplay_Previews: PreviewProvider {
-    static var previews: some View {
-        LanguageDisplay(
-            language: UiLanguage(language: .german, imageName: "german")
-        )
-    }
+#Preview {
+    LanguageDisplay(
+        language: UiLanguage(language: .russian, imageName: "russian")
+    )
 }

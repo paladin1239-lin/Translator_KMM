@@ -2,30 +2,32 @@
 //  TranslateScreen.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/10/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
 import shared
 
 struct TranslateScreen: View {
-    private var historyDataSource: HistoryDataSource
+    private var historyDataSource : HistoryDataSource
     private var translateUseCase: Translate
     @ObservedObject var viewModel: IOSTranslateViewModel
-    private let parser: any VoiceToTextParser
     
-    init(historyDataSource: HistoryDataSource, translateUseCase: Translate, parser: VoiceToTextParser) {
+    init(historyDataSource: HistoryDataSource, translateUseCase: Translate) {
         self.historyDataSource = historyDataSource
         self.translateUseCase = translateUseCase
-        self.parser = parser
-        self.viewModel = IOSTranslateViewModel(historyDataSource: historyDataSource, translateUseCase: translateUseCase)
+        self.viewModel = IOSTranslateViewModel(
+            historyDataSource: historyDataSource,
+            translateUseCase: translateUseCase
+        )
     }
     
+    
     var body: some View {
-        ZStack {
+        ZStack{
             List {
-                HStack(alignment: .center) {
+                HStack(alignment: .center){
                     LanguageDropDown(
                         language: viewModel.state.fromLanguage,
                         isOpen: viewModel.state.isChoosingFromLanguage,
@@ -34,9 +36,11 @@ struct TranslateScreen: View {
                         }
                     )
                     Spacer()
-                    SwapLanguageButton(onClick: {
-                        viewModel.onEvent(event: TranslateEvent.SwapLanguages())
-                    })
+                    SwapLanguageButton(
+                        onClick: {
+                            viewModel.onEvent(event: TranslateEvent.SwapLanguages())
+                        }
+                    )
                     Spacer()
                     LanguageDropDown(
                         language: viewModel.state.toLanguage,
@@ -50,14 +54,20 @@ struct TranslateScreen: View {
                 .listRowBackground(Color.background)
                 
                 TranslateTextField(
-                    fromText: Binding(get: { viewModel.state.fromText }, set: { value in
-                        viewModel.onEvent(event: TranslateEvent.ChangeTranslationText(text: value))
-                    }),
+                    fromText: Binding(get: { viewModel.state.fromText
+                        
+                    },
+                         set: { value in
+                             viewModel.onEvent(event: TranslateEvent.ChangeTranslationText(text: value)) }
+                    ),
                     toText: viewModel.state.toText,
                     isTranslating: viewModel.state.isTranslating,
                     fromLanguage: viewModel.state.fromLanguage,
                     toLanguage: viewModel.state.toLanguage,
-                    onTranslateEvent: { viewModel.onEvent(event: $0) }
+                    onTranslateEvent: {
+                        viewModel.onEvent(event: $0)
+                    }
+                    
                 )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.background)
@@ -71,46 +81,44 @@ struct TranslateScreen: View {
                         .listRowBackground(Color.background)
                 }
                 
-                ForEach(viewModel.state.history, id: \.self.id) { item in
+                ForEach(viewModel.state.history, id: \.self.id){ item in
                     TranslateHistoryItem(
                         item: item,
-                        onClick: { viewModel.onEvent(event: TranslateEvent.SelectHistoryItem(item: item))}
+                        onClick: {
+                            viewModel.onEvent(event: TranslateEvent.SelectHistoryItem(item: item))
+                        }
+                        
                     )
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
                 }
+                
+                
             }
             .listStyle(.plain)
             .buttonStyle(.plain)
             
             VStack {
                 Spacer()
-                NavigationLink(
-                    destination: VoiceToTextScreen(
-                        onResult: { spokenText in
-                            viewModel.onEvent(event: TranslateEvent.SubmitVoiceResult(result: spokenText))
-                        },
-                        parser: parser,
-                        languageCode: viewModel.state.fromLanguage.language.langCode
-                    )
-                ) {
+                NavigationLink(destination: Text("Voice-to-text screen")) {
                     ZStack {
                         Circle()
-                            .foregroundColor(.primaryColor)
+                            .foregroundColor(.primary)
                             .padding()
                         Image(uiImage: UIImage(named: "mic")!)
                             .foregroundColor(.onPrimary)
-                            .accessibilityIdentifier("Record audio")
+                    
                     }
                     .frame(maxWidth: 100, maxHeight: 100)
                 }
             }
         }
-        .onAppear {
-            viewModel.startObserving()
+        .onAppear{
+            viewModel.startObseving()
         }
-        .onDisappear {
+        .onDisappear{
             viewModel.dispose()
         }
     }
 }
+

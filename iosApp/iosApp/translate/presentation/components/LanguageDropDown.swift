@@ -2,18 +2,18 @@
 //  LanguageDropDown.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/10/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
 import shared
 
+
 struct LanguageDropDown: View {
     var language: UiLanguage
     var isOpen: Bool
-    var selectLanguage: (UiLanguage) -> Void
-    
+    var selectLanguage: (UiLanguage)-> Void
     var body: some View {
         Menu {
             VStack {
@@ -38,12 +38,10 @@ struct LanguageDropDown: View {
     }
 }
 
-struct LanguageDropDown_Previews: PreviewProvider {
-    static var previews: some View {
-        LanguageDropDown(
-            language: UiLanguage(language: .german, imageName: "german"),
-            isOpen: true,
-            selectLanguage: { language in }
-        )
-    }
+#Preview {
+    LanguageDropDown(
+        language: UiLanguage(language: .hebrew, imageName: "hebrew"),
+        isOpen: true,
+        selectLanguage: { language in }
+    )
 }

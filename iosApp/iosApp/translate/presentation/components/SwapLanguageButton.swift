@@ -2,28 +2,27 @@
 //  SwapLanguageButton.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/10/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
+import shared
 
 struct SwapLanguageButton: View {
     var onClick: () -> Void
     var body: some View {
-        Button(action: onClick) {
+        Button(action: onClick){
             Image(uiImage: UIImage(named: "swap_languages")!)
                 .padding()
-                .background(Color.primaryColor)
+                .background(Color.primary)
                 .clipShape(Circle())
         }
     }
 }
 
-struct SwapLanguageButton_Previews: PreviewProvider {
-    static var previews: some View {
-        SwapLanguageButton(
-            onClick: {}
-        )
-    }
+#Preview {
+    SwapLanguageButton(
+        onClick: {}
+    )
 }

@@ -2,16 +2,18 @@
 //  TranslateHistoryItem.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/11/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
 import shared
 
+
 struct TranslateHistoryItem: View {
     let item: UiHistoryItem
     let onClick: () -> Void
+    
     
     var body: some View {
         Button(action: onClick) {
@@ -25,6 +27,7 @@ struct TranslateHistoryItem: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom)
+                
                 
                 HStack {
                     SmallLanguageIcon(language: item.toLanguage)
@@ -44,17 +47,15 @@ struct TranslateHistoryItem: View {
     }
 }
 
-struct TranslateHistoryItem_Previews: PreviewProvider {
-    static var previews: some View {
-        TranslateHistoryItem(
-            item: UiHistoryItem(
-                id: 0,
-                fromText: "Hello",
-                toText: "Hallo",
-                fromLanguage: UiLanguage(language: .english, imageName: "english"),
-                toLanguage: UiLanguage(language: .german, imageName: "german")
-            ),
-            onClick: {}
-        )
-    }
+#Preview {
+    TranslateHistoryItem(
+        item: UiHistoryItem(id: 0,
+                            fromText: "Hello",
+                            toText: "Halo",
+                            fromLanguage: UiLanguage(language: .english, imageName: "english"),
+                            toLanguage: UiLanguage(language: .german, imageName: "german")
+                            ),
+        onClick: {
+            
+        })
 }

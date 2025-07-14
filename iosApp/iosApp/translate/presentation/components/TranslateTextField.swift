@@ -2,8 +2,8 @@
 //  TranslateTextField.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/11/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
@@ -17,14 +17,17 @@ struct TranslateTextField: View {
     let fromLanguage: UiLanguage
     let toLanguage: UiLanguage
     let onTranslateEvent: (TranslateEvent) -> Void
-    
     var body: some View {
         if toText == nil || isTranslating {
-            IdleTextField(fromText: $fromText, isTranslating: isTranslating, onTranslateEvent: onTranslateEvent)
-                .gradientSurface()
-                .cornerRadius(15)
-                .animation(.easeInOut, value: isTranslating)
-                .shadow(radius: 4)
+            IdleTextField(
+                fromText: $fromText,
+                isTranslating: isTranslating,
+                onTranslateEvent: onTranslateEvent
+            )
+            .gradientSurface()
+            .cornerRadius(15)
+            .animation(.easeInOut, value: isTranslating)
+            .shadow(radius: 4)
         } else {
             TranslatedTextField(
                 fromText: fromText,
@@ -45,21 +48,20 @@ struct TranslateTextField: View {
     }
 }
 
-struct TranslateTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        TranslateTextField(
-            fromText: Binding(
-                get: { "test" },
-                set: { value in }
-            ),
-            toText: "Test",
-            isTranslating: false,
-            fromLanguage: UiLanguage(language: .english, imageName: "english"),
-            toLanguage: UiLanguage(language: .german, imageName: "german"),
-            onTranslateEvent: { event in }
-        )
-    }
+#Preview {
+    TranslateTextField(
+        fromText: Binding(
+            get: {"test from text"},
+            set: {value in}
+        ),
+        toText: "test to text",
+        isTranslating: false,
+        fromLanguage: UiLanguage(language: .english, imageName: "english"),
+        toLanguage: UiLanguage(language: .hebrew, imageName: "hebrew"),
+        onTranslateEvent: { eveny in }
+    )
 }
+
 
 private extension TranslateTextField {
     
@@ -77,7 +79,7 @@ private extension TranslateTextField {
                 )
                 .padding()
                 .foregroundColor(Color.onSurface)
-                .overlay(alignment: .bottomTrailing) {
+                .overlay(alignment: .bottomTrailing){
                     ProgressButton(
                         text: "Translate",
                         isLoading: isTranslating,
@@ -108,21 +110,19 @@ private extension TranslateTextField {
                 LanguageDisplay(language: fromLanguage)
                 Text(fromText)
                     .foregroundColor(.onSurface)
-                HStack {
+                HStack{
                     Spacer()
                     Button(action: {
-                        UIPasteboard.general.setValue(
-                            fromText,
-                            forPasteboardType: UTType.plainText.identifier
-                        )
-                    }) {
+                        UIPasteboard.general.setValue(fromText,
+                                                      forPasteboardType: UTType.plainText.identifier)
+                    }){
                         Image(uiImage: UIImage(named: "copy")!)
                             .renderingMode(.template)
                             .foregroundColor(.lightBlue)
                     }
                     Button(action: {
                         onTranslateEvent(TranslateEvent.CloseTranslation())
-                    }) {
+                    }){
                         Image(systemName: "xmark")
                             .foregroundColor(.lightBlue)
                     }
@@ -134,14 +134,13 @@ private extension TranslateTextField {
                 Text(toText)
                     .foregroundColor(.onSurface)
                 
+                
                 HStack {
                     Spacer()
                     Button(action: {
-                        UIPasteboard.general.setValue(
-                            toText,
-                            forPasteboardType: UTType.plainText.identifier
-                        )
-                    }) {
+                        UIPasteboard.general.setValue(toText,
+                                                      forPasteboardType: UTType.plainText.identifier)
+                    }){
                         Image(uiImage: UIImage(named: "copy")!)
                             .renderingMode(.template)
                             .foregroundColor(.lightBlue)
@@ -151,11 +150,12 @@ private extension TranslateTextField {
                             text: toText,
                             language: toLanguage.language.langCode
                         )
-                    }) {
+                    }){
                         Image(systemName: "speaker.wave.2")
                             .foregroundColor(.lightBlue)
                     }
                 }
+                
             }
         }
     }

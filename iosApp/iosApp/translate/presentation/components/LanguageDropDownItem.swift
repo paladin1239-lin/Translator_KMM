@@ -2,8 +2,8 @@
 //  LanguageDropDownItem.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/10/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
@@ -12,9 +12,10 @@ import shared
 struct LanguageDropDownItem: View {
     var language: UiLanguage
     var onClick: () -> Void
+    
     var body: some View {
         Button(action: onClick) {
-            HStack {
+            HStack{
                 if let image = UIImage(named: language.imageName.lowercased()) {
                     Image(uiImage: image)
                         .resizable()
@@ -28,11 +29,8 @@ struct LanguageDropDownItem: View {
     }
 }
 
-struct LanguageDropDownItem_Previews: PreviewProvider {
-    static var previews: some View {
-        LanguageDropDownItem(
-            language: UiLanguage(language: .german, imageName: "german"),
-            onClick: {}
-        )
-    }
+#Preview {
+    LanguageDropDownItem(
+        language: UiLanguage(language: .russian, imageName: "russian"), onClick: {}
+    )
 }

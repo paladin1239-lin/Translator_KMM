@@ -2,8 +2,8 @@
 //  ProgressButton.swift
 //  iosApp
 //
-//  Created by Philipp Lackner on 08.12.22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Created by Sanela Rankovic on 7/11/25.
+//  Copyright © 2025 orgName. All rights reserved.
 //
 
 import SwiftUI
@@ -13,7 +13,6 @@ struct ProgressButton: View {
     var text: String
     var isLoading: Bool
     var onClick: () -> Void
-    
     var body: some View {
         Button(
             action: {
@@ -21,21 +20,22 @@ struct ProgressButton: View {
                     onClick()
                 }
             }
-        ) {
+        ){
             if isLoading {
                 ProgressView()
                     .animation(.easeInOut, value: isLoading)
                     .padding(5)
-                    .background(Color.primaryColor)
+                    .background(Color.primary)
                     .cornerRadius(100)
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                
             } else {
                 Text(text.uppercased())
                     .animation(.easeInOut, value: isLoading)
                     .padding(.horizontal)
                     .padding(.vertical, 5)
                     .font(.body.weight(.bold))
-                    .background(Color.primaryColor)
+                    .background(Color.primary)
                     .foregroundColor(Color.onPrimary)
                     .cornerRadius(100)
             }
@@ -43,12 +43,10 @@ struct ProgressButton: View {
     }
 }
 
-struct ProgressButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ProgressButton(
-            text: "Translate",
-            isLoading: false,
-            onClick: {}
-        )
-    }
+#Preview {
+    ProgressButton(
+        text: "Translate",
+        isLoading: false,
+        onClick: {}
+    )
 }
